@@ -1,5 +1,6 @@
 package com.felipepinha.forumhub.entities;
 
+import com.felipepinha.forumhub.dto.auth.UserCreationDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,10 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Answer> answers;
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }
