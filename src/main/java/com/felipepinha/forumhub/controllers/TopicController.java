@@ -5,6 +5,7 @@ import com.felipepinha.forumhub.dto.topic.TopicDTO;
 import com.felipepinha.forumhub.repositories.TopicRepository;
 import com.felipepinha.forumhub.services.TopicService;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,13 @@ public class TopicController {
     @GetMapping
     public Page<TopicDTO> listTopics(@PageableDefault(sort = "title", size = 10) Pageable pagination) {
         return topicRepository.findAllByActiveTrue(pagination).map(TopicDTO::new);
+    }
+
+    @GetMapping("/{topicId}")
+    public TopicDTO listSingleTopic(@PathVariable Long topicId) {
+        var topic = topicRepository.findById(topicId).orElseThrow(() -> new ValidationException("Topic not found"));
+
+        return new TopicDTO(topic);
     }
 
     @PostMapping
