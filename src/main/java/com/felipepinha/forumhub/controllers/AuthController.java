@@ -7,9 +7,11 @@ import com.felipepinha.forumhub.security.TokenJWTDTO;
 import com.felipepinha.forumhub.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 public class AuthController {
@@ -18,14 +20,17 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public TokenJWTDTO login(@RequestBody @Valid UserLoginDTO data) {
+    public ResponseEntity login(@RequestBody @Valid UserLoginDTO data) {
         var jwtToken = authService.login(data);
 
-        return jwtToken;
+        return ResponseEntity.ok().body(jwtToken);
     }
 
     @PostMapping("/register")
-    public UserDTO register(@RequestBody @Valid UserCreationDTO data) {
-        return authService.register(data);
+    public ResponseEntity register(@RequestBody @Valid UserCreationDTO data, UriComponentsBuilder uriBuilder) {
+        var user = authService.register(data);
+        var uri = uriBuilder.path("/register").buildAndExpand(data.email()).toUri();
+
+        return ResponseEntity.created(uri).body(user);
     }
 }

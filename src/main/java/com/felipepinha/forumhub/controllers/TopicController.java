@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/topics")
@@ -25,32 +27,41 @@ public class TopicController {
     private TopicRepository topicRepository;
 
     @GetMapping
-    public Page<TopicDTO> listTopics(@PageableDefault(sort = "title", size = 10) Pageable pagination) {
-        return topicRepository.findAllByActiveTrue(pagination).map(TopicDTO::new);
+    public ResponseEntity<Page<TopicDTO>> listTopics(@PageableDefault(sort = "title", size = 10) Pageable pagination) {
+        var page = topicRepository.findAllByActiveTrue(pagination).map(TopicDTO::new);
+
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{topicId}")
-    public TopicDTO listSingleTopic(@PathVariable Long topicId) {
+    public ResponseEntity listSingleTopic(@PathVariable Long topicId) {
         var topic = topicRepository.findById(topicId).orElseThrow(() -> new ValidationException("Topic not found"));
 
-        return new TopicDTO(topic);
+        return ResponseEntity.ok(new TopicDTO(topic));
     }
 
     @PostMapping
     @Transactional
-    public TopicDTO create(@RequestBody @Valid TopicCreationDTO data) {
-        return topicService.createTopic(data);
+    public ResponseEntity create(@RequestBody @Valid TopicCreationDTO data, UriComponentsBuilder uriBuilder) {
+        var topic = topicService.createTopic(data);
+        var uri = uriBuilder.path("/topics").buildAndExpand(topic.id()).toUri();
+
+        return ResponseEntity.created(uri).body(topic);
     }
 
     @PutMapping("/{topicId}")
     @Transactional
-    public void updateTopic(@PathVariable Long topicId, @RequestBody @Valid TopicUpdateDTO data) {
-        topicService.updateTopic(topicId, data);
+    public ResponseEntity updateTopic(@PathVariable Long topicId, @RequestBody @Valid TopicUpdateDTO data) {
+        var topic = topicService.updateTopic(topicId, data);
+
+        return ResponseEntity.ok(topic);
     }
 
     @DeleteMapping("/{topicId}")
     @Transactional
-    public void deleteTopic(@PathVariable Long topicId) {
+    public ResponseEntity deleteTopic(@PathVariable Long topicId) {
         topicRepository.deleteById(topicId);
+
+        return ResponseEntity.noContent().build();
     }
 }

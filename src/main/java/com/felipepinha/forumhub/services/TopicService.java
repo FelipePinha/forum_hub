@@ -46,10 +46,12 @@ public class TopicService {
         return new TopicDTO(topic);
     }
 
-    public void updateTopic(Long topicId, TopicUpdateDTO data) {
+    public TopicDTO updateTopic(Long topicId, TopicUpdateDTO data) {
         Topic topic = topicRepository.findById(topicId)
                 .orElseThrow(() -> new ValidationException("Topic not found"));
 
         topic.updateInfo(data);
+
+        return new TopicDTO(topic);
     }
 }

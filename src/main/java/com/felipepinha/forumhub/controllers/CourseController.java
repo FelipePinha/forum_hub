@@ -3,6 +3,7 @@ package com.felipepinha.forumhub.controllers;
 import com.felipepinha.forumhub.dto.course.CourseWithTopicsDTO;
 import com.felipepinha.forumhub.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,8 @@ public class CourseController {
     private CourseRepository courseRepository;
 
     @GetMapping("/{courseId}")
-    public CourseWithTopicsDTO listCourseWithTopics(@PathVariable Long courseId) {
+    public ResponseEntity listCourseWithTopics(@PathVariable Long courseId) {
         var course = courseRepository.findCourseWithTopics(courseId).get();
-        return new CourseWithTopicsDTO(course);
+        return ResponseEntity.ok(new CourseWithTopicsDTO(course));
     }
 }
