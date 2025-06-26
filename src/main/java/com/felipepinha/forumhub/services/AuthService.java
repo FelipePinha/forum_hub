@@ -5,12 +5,10 @@ import com.felipepinha.forumhub.dto.auth.UserDTO;
 import com.felipepinha.forumhub.dto.auth.UserLoginDTO;
 import com.felipepinha.forumhub.entities.User;
 import com.felipepinha.forumhub.repositories.AuthRepository;
-import com.felipepinha.forumhub.security.TokenJWTDTO;
-import com.felipepinha.forumhub.security.TokenService;
+import com.felipepinha.forumhub.infra.security.TokenJWTDTO;
+import com.felipepinha.forumhub.infra.security.TokenService;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

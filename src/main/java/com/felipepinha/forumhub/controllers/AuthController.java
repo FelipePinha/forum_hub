@@ -1,9 +1,7 @@
 package com.felipepinha.forumhub.controllers;
 
 import com.felipepinha.forumhub.dto.auth.UserCreationDTO;
-import com.felipepinha.forumhub.dto.auth.UserDTO;
 import com.felipepinha.forumhub.dto.auth.UserLoginDTO;
-import com.felipepinha.forumhub.security.TokenJWTDTO;
 import com.felipepinha.forumhub.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

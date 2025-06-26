@@ -1,4 +1,4 @@
-package com.felipepinha.forumhub.security;
+package com.felipepinha.forumhub.infra.security;
 
 import com.felipepinha.forumhub.repositories.AuthRepository;
 import jakarta.servlet.FilterChain;

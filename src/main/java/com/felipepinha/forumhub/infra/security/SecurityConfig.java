@@ -1,4 +1,4 @@
-package com.felipepinha.forumhub.security;
+package com.felipepinha.forumhub.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

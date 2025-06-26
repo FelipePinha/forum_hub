@@ -35,7 +35,7 @@ public class TopicController {
 
     @GetMapping("/{topicId}")
     public ResponseEntity listSingleTopic(@PathVariable Long topicId) {
-        var topic = topicRepository.findById(topicId).orElseThrow(() -> new ValidationException("Topic not found"));
+        var topic = topicRepository.getReferenceById(topicId);
 
         return ResponseEntity.ok(new TopicDTO(topic));
     }

@@ -1,4 +1,4 @@
-package com.felipepinha.forumhub.security;
+package com.felipepinha.forumhub.infra.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
