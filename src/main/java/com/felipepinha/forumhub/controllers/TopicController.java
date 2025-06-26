@@ -2,6 +2,7 @@ package com.felipepinha.forumhub.controllers;
 
 import com.felipepinha.forumhub.dto.topic.TopicCreationDTO;
 import com.felipepinha.forumhub.dto.topic.TopicDTO;
+import com.felipepinha.forumhub.dto.topic.TopicUpdateDTO;
 import com.felipepinha.forumhub.repositories.TopicRepository;
 import com.felipepinha.forumhub.services.TopicService;
 import jakarta.validation.Valid;
@@ -39,5 +40,17 @@ public class TopicController {
     @Transactional
     public TopicDTO create(@RequestBody @Valid TopicCreationDTO data) {
         return topicService.createTopic(data);
+    }
+
+    @PutMapping("/{topicId}")
+    @Transactional
+    public void updateTopic(@PathVariable Long topicId, @RequestBody @Valid TopicUpdateDTO data) {
+        topicService.updateTopic(topicId, data);
+    }
+
+    @DeleteMapping("/{topicId}")
+    @Transactional
+    public void deleteTopic(@PathVariable Long topicId) {
+        topicRepository.deleteById(topicId);
     }
 }

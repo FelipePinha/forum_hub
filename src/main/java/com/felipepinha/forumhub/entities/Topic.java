@@ -1,5 +1,7 @@
 package com.felipepinha.forumhub.entities;
 
+import com.felipepinha.forumhub.dto.topic.TopicCreationDTO;
+import com.felipepinha.forumhub.dto.topic.TopicUpdateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,4 +38,9 @@ public class Topic {
 
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
     private List<Answer> answers;
+
+    public void updateInfo(TopicUpdateDTO topic) {
+        this.title = topic.title();
+        this.message = topic.message();
+    }
 }

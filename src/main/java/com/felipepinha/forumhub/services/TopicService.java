@@ -2,6 +2,7 @@ package com.felipepinha.forumhub.services;
 
 import com.felipepinha.forumhub.dto.topic.TopicCreationDTO;
 import com.felipepinha.forumhub.dto.topic.TopicDTO;
+import com.felipepinha.forumhub.dto.topic.TopicUpdateDTO;
 import com.felipepinha.forumhub.entities.Topic;
 import com.felipepinha.forumhub.repositories.AuthRepository;
 import com.felipepinha.forumhub.repositories.CourseRepository;
@@ -31,8 +32,6 @@ public class TopicService {
         var course = courseRepository.findById(data.courseId())
                 .orElseThrow(() -> new ValidationException("Course not found"));
 
-
-
         Topic topic = Topic.builder()
                 .title(data.title())
                 .message(data.message())
@@ -45,5 +44,12 @@ public class TopicService {
         topicRepository.save(topic);
 
         return new TopicDTO(topic);
+    }
+
+    public void updateTopic(Long topicId, TopicUpdateDTO data) {
+        Topic topic = topicRepository.findById(topicId)
+                .orElseThrow(() -> new ValidationException("Topic not found"));
+
+        topic.updateInfo(data);
     }
 }
