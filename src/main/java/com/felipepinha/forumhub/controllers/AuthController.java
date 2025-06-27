@@ -6,6 +6,7 @@ import com.felipepinha.forumhub.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Transactional
     public ResponseEntity register(@RequestBody @Valid UserCreationDTO data, UriComponentsBuilder uriBuilder) {
         var user = authService.register(data);
         var uri = uriBuilder.path("/register").buildAndExpand(data.email()).toUri();
