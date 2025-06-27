@@ -1,7 +1,7 @@
 
 # Forum Hub 💬
 
-Forum Hub é uma API REST desenvolvida com **Spring Boot** como parte do programa **Oracle Next Education (ONE)** em parceria com a **Alura**. Seu objetivo é gerenciar tópicos de discussão em uma plataforma de cursos. Usuários podem se registrar, autenticar-se e interagir com tópicos relacionados aos cursos disponíveis.
+Forum Hub é uma API REST desenvolvida com **Spring Boot** como parte do programa **ONE** em parceria com a **Alura**. Seu objetivo é gerenciar tópicos de discussão em uma plataforma de cursos. Usuários podem se registrar, autenticar-se e interagir com tópicos relacionados aos cursos disponíveis.
 
 
 ## 🚀 Tecnologias Utilizadas
